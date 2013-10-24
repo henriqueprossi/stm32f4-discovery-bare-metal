@@ -78,8 +78,6 @@ LDSCRIPT = $(PROJECT_DIR)/project/stm32_flash.ld
 BUILD_NAME = $(PROJECT)
 
 # Project's space-delimited list of C source files
-#$(CMSIS_DIR)/core/core_cm4.c
-
 PROJ_C_SRC = $(PROJECT_DIR)/src/system_stm32f4xx.c  \
              $(PROJECT_DIR)/src/crt.c               \
              $(PROJECT_DIR)/src/stm32f4_vector.c    \
@@ -89,8 +87,6 @@ PROJ_C_SRC = $(PROJECT_DIR)/src/system_stm32f4xx.c  \
              $(CMSIS_DIR)/device/stm32f4xx_syscfg.c \
              $(CMSIS_DIR)/device/stm32f4xx_exti.c   \
              $(CMSIS_DIR)/device/misc.c
-
-#$(PROJECT_DIR)/src/stm32f4_discovery.c \
 
 # Project's space-delimited list of ASM source files
 PROJ_ASM_SRC =
@@ -127,11 +123,9 @@ OPT = -O0
 
 # Flags which are used by the ASM compiler
 ASMFLAGS = -c $(DEBUG) $(MCU_FLAGS) -Wa,-amhls=$(addprefix $(OUTPUT_DIR)/, $(notdir $(addsuffix .lst, $(basename $<)))) $(ASM_DEFINES)
-# -g -gdwarf-2
 
 # Flags which are used by the C compiler
 CFLAGS = -c $(DEBUG) $(OPT) $(MCU_FLAGS) -mapcs-frame -Wall -Wstrict-prototypes -fverbose-asm $(C_DEFINES)
-#-gdwarf-2 -fomit-frame-pointer 
 
 # Generate dependency information
 CFLAGS += -MMD -MP -MF $(OUTPUT_DIR)/.dep/$(@F).d
@@ -142,8 +136,6 @@ CFLAGS += -Wa,-adhlns=$(addprefix $(OUTPUT_DIR)/, $(notdir $(addsuffix .lst, $(b
 # Flags which are used by the linker
 LDFLAGS = $(MCU_FLAGS) -nostartfiles -Wl,-T$(LDSCRIPT) -Wl,-Map=$(OUTPUT_DIR)/$(BUILD_NAME).map,--cref,--no-warn-mismatch $(LIBDIR)
 
-# Verificar!!
-#CFLAGS += -Wextra -Werror -Wcast-align -Wpointer-arith -Wredundant-decls -Wcast-qual
 LDFLAGS += -lc -lgcc
 
 # List of all source files in the project (ASM and C files)
@@ -188,13 +180,13 @@ rebuild: clean build
 .PRECIOUS : $(ALL_PROJ_OBJS)
 %.elf: $(ALL_PROJ_OBJS) $(BUILDONCHANGE)
 	$(CC) $(ALL_PROJ_OBJS) $(LDFLAGS) -o $@
-  
+
 %.hex: %.elf $(BUILDONCHANGE)
 	$(HEX) $< $@
 
 %.bin: %.elf $(BUILDONCHANGE)
 	$(BIN) $< $@
-	
+
 # Create the symbol table from the built ELF output file
 %.sym: %.elf $(BUILDONCHANGE)
 	$(NM) -n $< > $@
@@ -219,11 +211,6 @@ $(foreach src, $(PROJ_C_SRC), $(eval $(call C_FILE_RULE_TEMPLATE, $(src))))
 
 clean:
 	-rm -Rf $(OUTPUT_DIR)
-
-# Program the device with Dominic Rath's OPENOCD in "batch-mode"
-program: $(OUTPUT_DIR)/$(BUILD_NAME).elf
-	@echo "Programming with OPENOCD"
-	$(OOCD_EXE) $(OOCD_CL)
 
 # Include the dependency files.
 -include $(wildcard $(OUTDIR)/.dep/*.d)

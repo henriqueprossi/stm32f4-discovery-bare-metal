@@ -3,28 +3,11 @@
 **
 **  File        : stm32_flash.ld
 **
-**  Abstract    : Linker script for STM32F407VG Device with
-**                1024KByte FLASH, 192KByte RAM
-**
-**                Set heap size, stack size and stack location according
-**                to application requirements.
-**
-**                Set memory bank area and size if external memory is used.
+**  Abstract    : Linker script for STM32F4xx microcontrollers
 **
 **  Target      : STMicroelectronics STM32
 **
-**  Environment : Atollic TrueSTUDIO(R)
-**
-**  Distribution: The file is distributed “as is,” without any warranty
-**                of any kind.
-**
-**  (c)Copyright Atollic AB.
-**  You may use this file as-is or modify it according to the needs of your
-**  project. Distribution of this file (unmodified or modified) is not
-**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the
-**  rights to distribute the assembled, compiled & linked contents of this
-**  file as part of an application binary file, provided that it is built
-**  using the Atollic TrueSTUDIO(R) toolchain.
+**  Environment : GCC
 **
 *****************************************************************************
 */
@@ -44,7 +27,7 @@ MEMORY
 {
   FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 1024K
   RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 192K
-  MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
+  MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0
 }
 
 /* Define output sections */
@@ -68,7 +51,7 @@ SECTIONS
     *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
     *(.glue_7)         /* glue arm to thumb code */
     *(.glue_7t)        /* glue thumb to arm code */
-	*(.eh_frame)
+	  *(.eh_frame)
 
     KEEP (*(.init))
     KEEP (*(.fini))
@@ -78,19 +61,25 @@ SECTIONS
   } >FLASH
 
 
-   .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) } >FLASH
-    .ARM : {
+  .ARM.extab :
+  {
+    *(.ARM.extab* .gnu.linkonce.armextab.*)
+  } >FLASH
+  
+  .ARM :
+  {
     __exidx_start = .;
-      *(.ARM.exidx*)
-      __exidx_end = .;
-    } >FLASH
+    *(.ARM.exidx*)
+    __exidx_end = .;
+  } >FLASH
 
-  .preinit_array     :
+  .preinit_array :
   {
     PROVIDE_HIDDEN (__preinit_array_start = .);
     KEEP (*(.preinit_array*))
     PROVIDE_HIDDEN (__preinit_array_end = .);
   } >FLASH
+  
   .init_array :
   {
     PROVIDE_HIDDEN (__init_array_start = .);
@@ -98,6 +87,7 @@ SECTIONS
     KEEP (*(.init_array*))
     PROVIDE_HIDDEN (__init_array_end = .);
   } >FLASH
+
   .fini_array :
   {
     PROVIDE_HIDDEN (__fini_array_start = .);
@@ -110,7 +100,7 @@ SECTIONS
   _sidata = .;
 
   /* Initialized data sections goes into RAM, load LMA copy after code */
-  .data : AT ( _sidata )
+  .data : AT (_sidata)
   {
     . = ALIGN(4);
     _sdata = .;        /* create a global symbol at data start */
@@ -123,6 +113,7 @@ SECTIONS
 
   /* Uninitialized data section */
   . = ALIGN(4);
+
   .bss :
   {
     /* This is used by the startup in order to initialize the .bss secion */
@@ -166,5 +157,9 @@ SECTIONS
     libgcc.a ( * )
   }
 
-  .ARM.attributes 0 : { *(.ARM.attributes) }
+  .ARM.attributes 0 :
+  {
+    *(.ARM.attributes)
+  }
 }
+

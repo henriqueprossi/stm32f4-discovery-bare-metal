@@ -90,6 +90,10 @@ void SysTick_Handler(void)
 
 int main(void)
 {
+  //char * teste;
+  //teste = (char *) malloc(10);
+  //(void) teste;
+  
   /* At this point the microcontroller clock is already set, which is done through SystemInit()
    * function. This is done by means of the C runtime initialization (crt.c), which, afterwards,
    * call the main application.
