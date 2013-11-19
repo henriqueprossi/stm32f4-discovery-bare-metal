@@ -127,7 +127,7 @@ __attribute__ ((section(".isr_vector")))
 void (* const g_pfnVectors[])(void) =
 {
   /* Predefined exception types of the ARM Cortex-M3/4 core. */
-  (void (*)(void)) &_estack,
+  (void (*)(void)) &_stack_start,
   Reset_Handler,
   NMI_Handler,
   HardFault_Handler,

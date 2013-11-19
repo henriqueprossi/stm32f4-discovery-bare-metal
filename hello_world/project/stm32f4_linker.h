@@ -34,7 +34,11 @@
   GLOBAL VARIABLES
 ==================================================================================================*/
 
-extern unsigned long _etext;
+extern unsigned long _stack_start;
+extern unsigned long _stack_end;
+extern unsigned long _heap_start;
+extern unsigned long _heap_end;
+
 extern unsigned long _sidata;		/* start address for the initialization values
                                    of the .data section. defined in linker script */
 extern unsigned long _sdata;		/* start address for the .data section. defined
@@ -47,7 +51,7 @@ extern unsigned long _sbss;			/* start address for the .bss section. defined
 extern unsigned long _ebss;			/* end address for the .bss section. defined in
                                    linker script */
 
-extern unsigned long _estack;		/* init value for the stack pointer. defined in linker script */
+extern unsigned long end;
 
 /*==================================================================================================
   GLOBAL FUNCTIONS

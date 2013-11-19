@@ -90,10 +90,8 @@ void SysTick_Handler(void)
 
 int main(void)
 {
-  //char * teste;
-  //teste = (char *) malloc(10);
-  //(void) teste;
-  
+  char * teste;
+    
   /* At this point the microcontroller clock is already set, which is done through SystemInit()
    * function. This is done by means of the C runtime initialization (crt.c), which, afterwards,
    * call the main application.
@@ -124,6 +122,14 @@ int main(void)
   GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
   
   GPIO_Init(GPIOD, &GPIO_InitStructure);
+  
+  teste = (char *) malloc(1024);
+  (void) teste;
+/*
+  if (!teste) {
+    return 1;
+  }
+*/
 
   while (1) {
     GPIO_SetBits(GPIOD, LED4_PIN); /* LED4 ON */
