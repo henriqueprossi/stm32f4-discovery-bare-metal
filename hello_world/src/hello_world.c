@@ -124,12 +124,9 @@ int main(void)
   GPIO_Init(GPIOD, &GPIO_InitStructure);
   
   teste = (char *) malloc(1024);
-  (void) teste;
-/*
   if (!teste) {
     return 1;
   }
-*/
 
   while (1) {
     GPIO_SetBits(GPIOD, LED4_PIN); /* LED4 ON */

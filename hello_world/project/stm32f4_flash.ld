@@ -33,7 +33,6 @@ _stack_end   = _stack_start - _stack_size;
 /* Defines beginning and ending of heap. */
 _heap_start = _stack_end - _heap_size;
 _heap_end   = _stack_end;
-/* _heap_end   = _heap_start + _heap_size - 1;*/
 
 /* Describes the placement of each output section, including the input sections which are
    inserted into them */
@@ -165,7 +164,6 @@ SECTIONS
   .stack . (NOLOAD) :
   {
     . = ALIGN(4);
-    //_sstack = .;
     . = . + _stack_size;
     . = ALIGN(4);
   } > RAM
@@ -173,7 +171,6 @@ SECTIONS
   /* Remove information from the standard libraries. */
   /DISCARD/ :
   {
-    *(.eh_*)
     libc.a ( * )
     libm.a ( * )
     libgcc.a ( * )

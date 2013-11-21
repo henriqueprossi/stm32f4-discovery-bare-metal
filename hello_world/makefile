@@ -24,8 +24,8 @@
 # ********************************************************************************************
 
 PROJECT_DIR   = $(shell pwd)
-#TOOLCHAIN_DIR = /opt/toolchains/eabi/gcc-arm-none-eabi-4_7-2013q2/bin
-TOOLCHAIN_DIR = /opt/toolchains/eabi/arm-2013.05/bin
+TOOLCHAIN_DIR = /opt/toolchains/eabi/gcc-arm-none-eabi-4_7-2013q3/bin
+#TOOLCHAIN_DIR = /opt/toolchains/eabi/arm-2013.05/bin
 TARGET_PREFIX = $(TOOLCHAIN_DIR)/arm-none-eabi-
 OUTPUT_DIR    = $(PROJECT_DIR)/build
 CMSIS_DIR     = $(PROJECT_DIR)/cmsis
@@ -138,7 +138,7 @@ CFLAGS += -Wa,-adhlns=$(addprefix $(OUTPUT_DIR)/, $(notdir $(addsuffix .lst, $(b
 LDFLAGS = $(MCU_FLAGS) -nostartfiles -Wl,-T$(LDSCRIPT) -Wl,-Map=$(OUTPUT_DIR)/$(BUILD_NAME).map,--cref,--no-warn-mismatch $(LIBDIR)
 
 LDFLAGS += -lc -lgcc
-#-lrdimon
+#-nostdlib -lrdimon
 
 # List of all source files in the project (ASM and C files)
 ALL_PROJ_SRC = $(PROJ_ASM_SRC) $(PROJ_C_SRC)
