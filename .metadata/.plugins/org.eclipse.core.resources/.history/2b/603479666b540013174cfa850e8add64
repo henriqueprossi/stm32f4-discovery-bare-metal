@@ -24,8 +24,8 @@
 # ********************************************************************************************
 
 PROJECT_DIR   = $(shell pwd)
-#TOOLCHAIN_DIR = /opt/toolchains/eabi/gcc-arm-none-eabi-4_7-2013q3/bin
-TOOLCHAIN_DIR = /opt/toolchains/eabi/arm-2013.05/bin
+TOOLCHAIN_DIR = /opt/toolchains/eabi/gcc-arm-none-eabi-4_7-2013q3/bin
+#TOOLCHAIN_DIR = /opt/toolchains/eabi/arm-2013.05/bin
 TARGET_PREFIX = $(TOOLCHAIN_DIR)/arm-none-eabi-
 OUTPUT_DIR    = $(PROJECT_DIR)/build
 CMSIS_DIR     = $(PROJECT_DIR)/cmsis

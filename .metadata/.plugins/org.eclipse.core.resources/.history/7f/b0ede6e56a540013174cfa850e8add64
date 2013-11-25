@@ -131,10 +131,8 @@ int main(void)
     return 1;
   }
 
-  myfloat3 = myfloat1 * myfloat2;
-  if (myfloat3 < 1.00) {
-	  return 2;
-  }
+  myfloat3 = 4.7 * 1.23;
+  (void) myfloat;
 
   while (1) {
     GPIO_SetBits(GPIOD, LED4_PIN); /* LED4 ON */

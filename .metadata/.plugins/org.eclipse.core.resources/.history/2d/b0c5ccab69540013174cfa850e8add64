@@ -56,10 +56,10 @@ USED_ARM_CORTEX_MX = ARM_CORTEX_M4
 ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M0)
 MCU_FLAGS = -mcpu=cortex-m0 -mtune=cortex-m0
 else ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M3)
-MCU_FLAGS = -mcpu=cortex-m3 -mtune=cortex-m3 -mfloat-abi=soft
+MCU_FLAGS = -mcpu=cortex-m3 -mtune=cortex-m3
 else ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M4)
-#MCU_FLAGS = -mcpu=cortex-m4 -mfloat-abi=soft
-MCU_FLAGS = -mcpu=cortex-m4 -mtune=cortex-m4 -mfloat-abi=hard
+MCU_FLAGS = -mcpu=cortex-m4 -mfloat-abi=soft
+# -mtune=cortex-m4 -mfloat-abi=hard
 else
 
 endif

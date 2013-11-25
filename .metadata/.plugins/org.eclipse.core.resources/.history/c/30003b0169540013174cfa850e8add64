@@ -91,9 +91,7 @@ void SysTick_Handler(void)
 int main(void)
 {
   char * teste;
-  float	myfloat1 = 1.25;
-  float	myfloat2 = 3.89;
-  float	myfloat3;
+  float	myfloat;
     
   /* At this point the microcontroller clock is already set, which is done through SystemInit()
    * function. This is done by means of the C runtime initialization (crt.c), which, afterwards,
@@ -131,10 +129,7 @@ int main(void)
     return 1;
   }
 
-  myfloat3 = myfloat1 * myfloat2;
-  if (myfloat3 < 1.00) {
-	  return 2;
-  }
+  myfloat = 4.7*1.23;
 
   while (1) {
     GPIO_SetBits(GPIOD, LED4_PIN); /* LED4 ON */
