@@ -25,7 +25,7 @@
 
 PROJECT_DIR   = $(shell pwd)
 #TOOLCHAIN_DIR = /opt/toolchains/eabi/gcc-arm-none-eabi-4_7-2013q3/bin
-TOOLCHAIN_DIR = /opt/toolchains/eabi/arm-2013.05/bin
+TOOLCHAIN_DIR = /opt/toolchains/eabi/arm-2013.11/bin
 TARGET_PREFIX = $(TOOLCHAIN_DIR)/arm-none-eabi-
 OUTPUT_DIR    = $(PROJECT_DIR)/build
 CMSIS_DIR     = $(PROJECT_DIR)/cmsis
@@ -58,7 +58,7 @@ MCU_FLAGS = -mcpu=cortex-m0 -mtune=cortex-m0
 else ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M3)
 MCU_FLAGS = -mcpu=cortex-m3 -mtune=cortex-m3 -mfloat-abi=soft
 else ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M4)
-#MCU_FLAGS = -mcpu=cortex-m4 -mfloat-abi=soft
+#MCU_FLAGS = -march=armv7 -mcpu=cortex-m4 -mfloat-abi=soft
 MCU_FLAGS = -mcpu=cortex-m4 -mtune=cortex-m4 -mfloat-abi=hard
 else
 

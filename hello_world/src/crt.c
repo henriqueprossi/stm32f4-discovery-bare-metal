@@ -16,6 +16,7 @@
 ==================================================================================================*/
 
 #include <stdint.h>
+#include "project.h"
 #include "crt.h"
 #include "system_stm32f4xx.h"
 #include "stm32f4_linker.h" /* Sections and symbols which are defined by the linker script */
@@ -69,6 +70,8 @@ void Reset_Handler(void)
   for (;;) ;
 }
 
+#ifdef PROJ_IMPLEMMENT_SYSCALLS
+
 /*==================================================================================================
   Function    : _sbrk
 
@@ -100,3 +103,4 @@ caddr_t _sbrk(int incr)
   return (caddr_t) prev_heap_end;
 }
 
+#endif /* PROJ_IMPLEMMENT_SYSCALLS */

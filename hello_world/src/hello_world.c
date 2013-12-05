@@ -17,6 +17,7 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4_discovery.h"
+#include "project.h"
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -90,11 +91,15 @@ void SysTick_Handler(void)
 
 int main(void)
 {
-  char * teste;
+#ifdef PROJ_TEST_DINAMIC_MEM
+  char * pmem;
+#endif
+#ifdef PROJ_TEST_FLOAT_OPERATION
   float	myfloat1 = 1.25;
   float	myfloat2 = 3.89;
   float	myfloat3;
-    
+#endif
+
   /* At this point the microcontroller clock is already set, which is done through SystemInit()
    * function. This is done by means of the C runtime initialization (crt.c), which, afterwards,
    * call the main application.
@@ -125,16 +130,20 @@ int main(void)
   GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_NOPULL;
   
   GPIO_Init(GPIOD, &GPIO_InitStructure);
-  
-  teste = (char *) malloc(1024);
-  if (!teste) {
+
+#ifdef PROJ_TEST_DINAMIC_MEM
+  pmem = (char *) malloc(1024);
+  if (!pmem) {
     return 1;
   }
+#endif
 
+#ifdef PROJ_TEST_FLOAT_OPERATION
   myfloat3 = myfloat1 * myfloat2;
   if (myfloat3 < 1.00) {
 	  return 2;
   }
+#endif
 
   while (1) {
     GPIO_SetBits(GPIOD, LED4_PIN); /* LED4 ON */
