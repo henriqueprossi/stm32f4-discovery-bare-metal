@@ -24,9 +24,9 @@
 ==================================================================================================*/
 
 #define PROJ_TEST_DINAMIC_MEM
-#define PROJ_TEST_FLOAT_OPERATION
+//#define PROJ_TEST_FLOAT_OPERATION
 
-#define PROJ_IMPLEMMENT_SYSCALLS
+//#define PROJ_IMPLEMMENT_SYSCALLS
 
 /*==================================================================================================
   GLOBAL TYPEDEFS

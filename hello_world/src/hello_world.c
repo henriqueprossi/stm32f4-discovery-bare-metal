@@ -20,12 +20,17 @@
 #include "project.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*=================================================================================================
   LOCAL DEFINITIONS
 =================================================================================================*/
 
-#define DELAY_1000_MS   1000u
+#define DELAY_1000_MS   	1000u
+
+#ifdef PROJ_TEST_DINAMIC_MEM
+#define DINAMIC_MEM_BLOCK	1024u
+#endif
 
 /*==================================================================================================
   LOCAL FUNCTIONS
@@ -84,15 +89,15 @@ void SysTick_Handler(void)
 
   Parameters  : None
 
-  Returns     : EXIT_SUCCESS  Successfull termination
+  Returns     : EXIT_SUCCESS:	Successfull termination
 
-                Otherwise     Error
+                Otherwise:		Error
 ==================================================================================================*/
 
 int main(void)
 {
 #ifdef PROJ_TEST_DINAMIC_MEM
-  char * pmem;
+  unsigned char * pmem;
 #endif
 #ifdef PROJ_TEST_FLOAT_OPERATION
   float	myfloat1 = 1.25;
@@ -132,10 +137,14 @@ int main(void)
   GPIO_Init(GPIOD, &GPIO_InitStructure);
 
 #ifdef PROJ_TEST_DINAMIC_MEM
-  pmem = (char *) malloc(1024);
+  pmem = (unsigned char *) malloc(DINAMIC_MEM_BLOCK);
   if (!pmem) {
     return 1;
   }
+
+  memset(pmem, 0, DINAMIC_MEM_BLOCK);
+  pmem[2] = 10;
+  free(pmem);
 #endif
 
 #ifdef PROJ_TEST_FLOAT_OPERATION
