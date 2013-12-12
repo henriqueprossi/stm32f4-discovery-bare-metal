@@ -101,7 +101,7 @@ PROJ_INC_DIR = $(PROJECT_DIR)         \
                $(CMSIS_DIR)/device
 
 # Project's list of directories for library search
-PROJ_LIB_DIR =
+PROJ_LIB_DIR = project
 
 # Project's list of necessary libraries
 PROJ_LIBS =
