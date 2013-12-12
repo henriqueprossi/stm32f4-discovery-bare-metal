@@ -169,4 +169,3 @@ SECTIONS
     *(.ARM.attributes)
   }
 }
-

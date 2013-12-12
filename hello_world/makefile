@@ -139,7 +139,10 @@ CFLAGS += -Wa,-adhlns=$(addprefix $(OUTPUT_DIR)/, $(notdir $(addsuffix .lst, $(b
 LDFLAGS = $(MCU_FLAGS) -nostartfiles -Wl,-T$(LDSCRIPT) -Wl,-Map=$(OUTPUT_DIR)/$(BUILD_NAME).map,--cref,--no-warn-mismatch $(LIBDIR)
 
 LDFLAGS += -lc -lgcc
-#-nostdlib -lrdimon
+#-nostdlib
+# Implementations of libgloss:
+# 	for Linaro:-lrdimon
+#   for Sourcery CodeBench Lite: -lcs3unhosted and -lcs3hosted
 
 # List of all source files in the project (ASM and C files)
 ALL_PROJ_SRC = $(PROJ_ASM_SRC) $(PROJ_C_SRC)
