@@ -87,6 +87,7 @@ void Reset_Handler(void)
 caddr_t _sbrk(int incr)
 {
   static unsigned char  * heap = NULL;
+  static unsigned char  * new_heap;
   unsigned char         * prev_heap_end;
 
   if (heap == NULL) {
@@ -94,8 +95,9 @@ caddr_t _sbrk(int incr)
   }
 
   prev_heap_end = heap;
-  
-  if ((heap + incr) > (unsigned char *) &_heap_end) {
+  new_heap = heap + incr;
+
+  if ((new_heap > (unsigned char *) &_heap_end) || (new_heap < (unsigned char *) &_end)) {
     return NULL;
   }
 

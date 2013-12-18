@@ -56,7 +56,7 @@ USED_ARM_CORTEX_MX = ARM_CORTEX_M4
 ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M0)
 MCU_FLAGS = -mcpu=cortex-m0 -mtune=cortex-m0
 else ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M3)
-MCU_FLAGS = -mcpu=cortex-m3 -mtune=cortex-m3 -mfloat-abi=soft
+MCU_FLAGS = -mcpu=cortex-m3 -mtune=cortex-m3
 else ifeq ($(USED_ARM_CORTEX_MX), ARM_CORTEX_M4)
 #MCU_FLAGS = -march=armv7 -mcpu=cortex-m4 -mfloat-abi=soft
 MCU_FLAGS = -mcpu=cortex-m4 -mtune=cortex-m4 -mfloat-abi=hard
@@ -138,9 +138,10 @@ CFLAGS += -Wa,-adhlns=$(addprefix $(OUTPUT_DIR)/, $(notdir $(addsuffix .lst, $(b
 # Flags which are used by the linker
 LDFLAGS = $(MCU_FLAGS) -nostartfiles -Wl,-T$(LDSCRIPT) -Wl,-Map=$(OUTPUT_DIR)/$(BUILD_NAME).map,--cref,--no-warn-mismatch $(LIBDIR)
 
-LDFLAGS += -lc -lgcc
+LDFLAGS += -lgcc -lc
+#LDFLAGS += -Wl,--start-group -lgcc -lc -lc -lm -lnosys -Wl,--end-group
 #-nostdlib
-# Implementations of libgloss:
+# Implementations of semihosting:
 # 	for Linaro:-lrdimon
 #   for Sourcery CodeBench Lite: -lcs3unhosted and -lcs3hosted
 
